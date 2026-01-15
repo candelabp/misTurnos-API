@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import model.enums.Rol;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,14 +14,13 @@ import model.enums.Rol;
 @SuperBuilder
 @Entity
 
-public class Usuario {
+public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
-    private String nombre;
-    private String email;
-    private Rol rol;
-    private boolean activo;
+    @OneToOne
+    @JoinColumn(name = "usuario_id")
+   private Usuario usuario;
 
 }

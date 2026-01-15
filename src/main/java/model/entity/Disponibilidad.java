@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
-import model.enums.Rol;
+
+import java.time.DayOfWeek;
+import java.time.LocalTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -14,15 +16,16 @@ import model.enums.Rol;
 @Setter
 @SuperBuilder
 @Entity
-
-public class Usuario {
+public class Disponibilidad {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false)
     private Long id;
-    private String nombre;
-    private String email;
-    private Rol rol;
-    private boolean activo;
-
+    @ManyToOne
+    @JoinColumn(name="profesional_id")
+    private Profesional profesional;
+    @Enumerated(EnumType.STRING)
+    private DayOfWeek diaSemana;
+    private LocalTime horaInicio;
+    private LocalTime horaFIn;
 }
