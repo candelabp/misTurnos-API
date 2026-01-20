@@ -1,10 +1,18 @@
-package model.dto.Turno;
+package model.dto.turno;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import model.enums.EstadoTurno;
 
 import java.time.LocalDateTime;
 
-public class TurnoResponseDto {
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class TurnoResponseDTO {
     Long id;
     Long clienteId;
     Long profesionalId;
