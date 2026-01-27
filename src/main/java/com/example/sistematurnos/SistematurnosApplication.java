@@ -1,0 +1,13 @@
+package com.example.sistematurnos;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class SistematurnosApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(SistematurnosApplication.class, args);
+    }
+
+}
