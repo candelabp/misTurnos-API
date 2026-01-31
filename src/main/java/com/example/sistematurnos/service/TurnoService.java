@@ -2,8 +2,10 @@ package com.example.sistematurnos.service;
 
 import com.example.sistematurnos.exception.BusinessConflictException;
 import com.example.sistematurnos.exception.ResourceNotFoundException;
+import com.example.sistematurnos.model.entity.Usuario;
 import com.example.sistematurnos.repository.*;
-import org.springframework.transaction.annotation.Transactional;import lombok.RequiredArgsConstructor;
+import org.springframework.transaction.annotation.Transactional;
+import lombok.RequiredArgsConstructor;
 import com.example.sistematurnos.mapper.TurnoMapper;
 import com.example.sistematurnos.model.dto.turno.TurnoRequestDTO;
 import com.example.sistematurnos.model.dto.turno.TurnoResponseDTO;
@@ -25,13 +27,16 @@ private final DisponibilidadRepository disponibilidadRepository;
 private final TurnoMapper turnoMapper;
 
 @Transactional
-    public TurnoResponseDTO reservar(TurnoRequestDTO request){
+    public TurnoResponseDTO reservar(TurnoRequestDTO request, String auth0UserId){
+
+    Usuario usuario = usuarioService.getUsuarioByAuth0IdOrThrow(auth0UserId, true);
     if (request.getFechaInicio() == null){
         throw new BusinessConflictException("fecha de inicio obligatoria");
     }
     if (request.getFechaInicio().isBefore(LocalDateTime.now())){
         throw new BusinessConflictException("La fecha de inicio debe ser futura");
     }
+
     var cliente = clienteRepository.findById(request.getClienteId())
             .orElseThrow(()-> new ResourceNotFoundException("CLiente", request.getClienteId()));
     var profesional = profesionalRepository.findById(request.getProfesionalId())

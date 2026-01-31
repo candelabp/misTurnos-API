@@ -15,4 +15,5 @@ public class UsuarioResponseDTO {
     private String email;
     private Rol rol;
     private boolean activo;
+    private String auth0Id;
 }
